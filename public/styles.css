@@ -1,0 +1,13 @@
+.navigationbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    display: block;
+    border: 1px blue;
+    margin: 10px;
+}
+#home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
