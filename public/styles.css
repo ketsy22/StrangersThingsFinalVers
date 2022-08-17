@@ -1,13 +1,17 @@
-.navigationbar{
+#app{
     display: flex;
     justify-content: space-around;
     align-items: center;
     display: block;
     border: 1px blue;
     margin: 10px;
+    
 }
 #home{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+body{
+    background-color: indianred;
 }

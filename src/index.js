@@ -1,44 +1,20 @@
-import React,{useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
-// import {BrowserRouter as Router} from 'react-router-dom';
-
-
-// export { default as Home } from '/home';
-// export { default as Profile } from '/profile';
-// export { default as Login } from '/login';
+import React, {useState, useEffect} from 'react';
+import {createRoot} from 'react-dom/client';
+import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import Posts from './components/posts';
+import Home from './components/home';
+import Profile from './components/profile';
+import {Login} from './components/login';
+import Register from './components/register';
+import SingleUserPosts from './components/singleuserposts';
 
 
 const App = () => {
-    return (
-        <div>
-            <Router>
-                {/*NavBar*/}
-                <navbar>
-                    <Link to="/home">Home</Link>
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/login">Login</Link>
-                   
-                </navbar>
-                {/*Main*/}
-                <Routes>
-                    <Route path="/home" element={<Home/>} />
-                    <Route path="/profile" element={<Profile/>} />
-                    <Route path="/login" element={<Login/>} />
-                
-                    <Route path="*" element={<ErrorMessage />} />
-                </Routes>
-                {/* Footer */}
-                <footer>
-                    <p>This is the footer.</p>
-                </footer>
-            </Router>
-        </div>
-    )
-    return App()
-}
-
-const Homeelement = ()=> {
     const [posts, setPosts] = useState([]);
+    const [isLoggedIn, setISLoggedIn] =useState(false);
+    const [currentUser, setCurrentUser] = useState({});
+    const [users, setUsers] = useState([]);
+
 
     useEffect(() => {
         const fetchPostData = async () => {
@@ -52,143 +28,46 @@ const Homeelement = ()=> {
             }
         };
         fetchPostData();
-
     }, []);
 
-// // Ternary Operator - a fancy if/else statement
-// // whatIsYourLogicalCondition ? ifTruthyDoThis : ifFalseyDoThis
-
-// // [{}, {}, {}]
-
     return (
-        <div>
-             {
-                posts.length ? posts.map((post, idx) => {
-                    return <div>
-                        <h3>{post.title}</h3>
-                        <div>{post.body}</div>
-                        </div>
-                }) : <div>No posts</div>
-            }
+        <div>  
+            <div>
+                <h1>Stranger's Things</h1>            
+                <br/>              
+            </div>
+            <div className='navbar' style={{"display": "flex", "flexDirection": "space-evenly"}}>
+                <Link style={{"padding": "5px"}} to="/">Home</Link>
+                <Link style={{"padding": "5px"}} to="/profile">Profile</Link>
+                <Link style={{"padding": "5px"}} to="/login">Login</Link>       
+            <h3 style={{backgroundColor: "lightcoral"}}>
+            </h3>
+            </div>
+            <Routes>
+                <Route path='/' element = {<Home/>} />
+                <Route path ="/posts" element={<Posts posts={posts}  />} />
+                <Route path ="/profile" element= {<Profile posts={posts}/>}/>
+                <Route path="/login" element={<Login/>} />
+                <Route path="/register" element={<Register/>} />  
+            </Routes>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <footer>
+                <h3>This is the footer.</h3>
+            </footer> 
+         
         </div>
-    )
-    
-}
-const Creating = (posts, setPosts) => {
-    const [title, setTitle] = useState([]); 
-    const [body, setBody] = useState([]);
-    
-    const  handleSubmit = async (evt) => {
-        evt.preventDefault();
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT-B/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'Applications/json',
-                },
-                body: JSON.stringify({
-                    title,
-                    body,
-                })
-            });
-         const data = await response.json();
-         console.log('data: ', data);  
-         setPosts([data, ...posts]);   
+    )  
+};
 
-    }
-    return <>
-        <h3> Create Post</h3>
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="title" value={title} onChange= {(evt) => setTitle(evt.target.value)}></input>
-            <input type="text" placeholder="body" value={body} onChange={(evt) => setBody(evt.target.value)}></input>
-            <button type="submit" className="btn-outline-primary">Submit</button>
-        </form>
-    </>
-}
-const element = document.getElementById('myComponents');
-ReactDOM.render(<Homeelement/>, element)
+const container = document.getElementById("app");
+const root = createRoot(container);
 
+root.render(
+<Router>
+ <App/>
+</Router>
 
-
-
-
-
-
-
-
-
-// const House =  () => {
-//     const [products, setProducts] = useState([]);
-//     useEffect(() => {
-//         const fetchProductData = async () => {
-//             console.log("hi")
-//             try { 
-//                 const response = await fetch ('https://dummyjson.com/products');
-//                 const data = await response.json();
-//                 console.log(data.products)
-//                 setProducts(data.products)
-//             } catch (error){
-//                 console.log(error);
-//             }
-            
-//         }
-//         fetchProductData()
-//     },[]);
-
-//     return (
-//         <div>
-//             {
-//                 products.length ? products.map((products, idx) => {
-//                     return <div>
-//                         <p>{products.images}</p>
-//                         </div>
-//                 }) : <div>No posts</div>
-//             }
-//             <p> hi ketsy</p>
-//         </div>
-//     )
-// }
-
-
-// const element = document.getElementById('myComponents');
-// ReactDOM.render(<House />, element)
-
-// // Array
-// const arr = ['a', 'b', 'c']
-
-// // Array notation
-// const elementInArr = arr[2]
-// const Bathroom = () => {
-//     const [carts, setCarts] = useState([]);
-//     useEffect(() => {
-//         const fetchCartData = async () => {
-//             try {
-//                 const response = await fetch('https://dummyjson.com/carts');
-//                 const data = await response.json();
-               
-//                 setCarts(data.carts)
-//             } catch (error) {
-//                 console.log(error);
-//             }
-//         }
-//         fetchCartData()
-//     }, []);
-//     return (
-//         <div>
-//             <div>
-//                 <p>test test</p>
-//             </div>
-//             {
-//                 carts.length ? carts.map(
-//                     (cart, idx) => {
-//                         // console.log(currentCart)
-
-//                         return <div>
-//                             <p>{cart.id}</p>
-//                             <p>{cart.total}</p>
-//                             </div>
-
-//                     }) : <div>No posts</div>
-//             }
-//         </div>
-//     )
-// }
+); 
