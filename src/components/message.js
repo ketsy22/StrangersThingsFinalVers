@@ -4,11 +4,6 @@ const CreateMessage = () =>
 {
   const [content , setContent] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [userMessages, setUserMessages] =useState([]);
-
-//   useEffect(() => {
-//     const  
-//   })
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
@@ -24,15 +19,13 @@ const CreateMessage = () =>
                   message: {
                     content: ""
                   }
-                })
-            
+                })           
             });
             const data = await response.json();
             window.localStorage.getItem('token', data.data.token);
             setContent('');
             setSubject('');
-            return data; 
-    
+            return data;    
     }
     return (
         <div>

@@ -20,7 +20,6 @@ const Register = () => {
                     }
                 })
             })
-  
             const data = await response.json();
             window.localStorage.setItem('token', data.data.token); 
             console.log(data); 
@@ -31,7 +30,6 @@ const Register = () => {
             console.log(error); 
         }
     }
-  
     return (
         <div>
             <form onSubmit={handleSubmit}>

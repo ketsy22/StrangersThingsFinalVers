@@ -6,23 +6,16 @@ import Home from './components/home';
 import Profile from './components/profile';
 import {Login} from './components/login';
 import Register from './components/register';
-import SingleUserPosts from './components/singleuserposts';
-
 
 const App = () => {
     const [posts, setPosts] = useState([]);
-    const [isLoggedIn, setISLoggedIn] =useState(false);
-    const [currentUser, setCurrentUser] = useState({});
-    const [users, setUsers] = useState([]);
-
-
+    
     useEffect(() => {
         const fetchPostData = async () => {
             try {
                 const response = await fetch('https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT-B/posts');
                 const data = await response.json();
-                setPosts(data.data.posts);
-                
+                setPosts(data.data.posts);               
             } catch (error) {
                 console.log(error);
             }

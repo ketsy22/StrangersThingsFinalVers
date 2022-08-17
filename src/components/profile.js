@@ -1,4 +1,3 @@
-import { token } from 'morgan';
 import React, { useEffect, useState } from 'react';
 import Messages from './message.js';
 
@@ -14,13 +13,12 @@ const Profile =  () => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-      },
-     
+      },     
     });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setMessages(data.data.messages);
-      console.log(setMessages)//******where can i find a post's id? token is data.data.token//
+      console.log(setMessages);
     } catch (error) {
       throw error;
     }
@@ -33,7 +31,6 @@ const Profile =  () => {
       <Messages/>
       <br/>
       <br/>
-       {/* <Singleuserposts/>  */}
       <div>
         {
           messages.length ? messages.map((message, idx) => {
@@ -44,9 +41,7 @@ const Profile =  () => {
           }) : <div>You have no messages.</div>
         }
       </div>
-
-    </div>
-      
+    </div>     
   )
 }
 export default Profile;

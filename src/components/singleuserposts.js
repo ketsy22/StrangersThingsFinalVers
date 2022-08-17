@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import CreatingPost from "./createpost";
-// import Posts from "./posts";
 
 const SingleUserPosts = () => {
     const [singlePosts, setSinglePosts] = useState([]);
@@ -22,9 +20,9 @@ const SingleUserPosts = () => {
                 }
             })
         })
-                const posts = await response.json();
+            const posts = await response.json();
                 console.log('data: ', posts);
-                setSinglePosts(data.data.posts); //**where can i find user's post's id? to access users/me posts?
+                setSinglePosts(data.data.posts); 
                 return posts;
         } catch(error){
             throw error;
@@ -32,11 +30,8 @@ const SingleUserPosts = () => {
     }
     fetchSinglePosts();
 }, [singlePosts]);
- 
 return(
         <div>
-             {/* <CreatingPost/> */}
-            {/* <Posts/>  */}
             <div>
             {
             posts.length ? posts.map((post, idx) => {
@@ -51,5 +46,4 @@ return(
         </div> 
     )
 } 
-
 export default SingleUserPosts;
